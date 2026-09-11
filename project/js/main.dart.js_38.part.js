@@ -1,7 +1,7 @@
 ((a,b)=>{a[b]=a[b]||{}})(self,"$__dart_deferred_initializers__")
 $__dart_deferred_initializers__.current=function(a,b,c,$){var B,A={
-btb(d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,a0,a1,a2,a3,a4,a5,a6){return new A.lN(g,a4,a5,a6,q,r,s,k,l,m,d,e,f,h,i,j,t,u,v,n,o,p,w,x,a0,a2,a3,a1)},
-ac9(){return A.btb(0,0,0,new B.bt(Date.now(),0,!1),0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0)},
+btc(d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,a0,a1,a2,a3,a4,a5,a6){return new A.lN(g,a4,a5,a6,q,r,s,k,l,m,d,e,f,h,i,j,t,u,v,n,o,p,w,x,a0,a2,a3,a1)},
+ac7(){return A.btc(0,0,0,new B.bt(Date.now(),0,!1),0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0)},
 lN:function lN(d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,a0,a1,a2,a3,a4,a5,a6){var _=this
 _.a=d
 _.b=e
@@ -37,13 +37,13 @@ A.lN.prototype={
 gxB(){return this.at+this.ch+this.cy},
 gxC(){return this.ax+this.CW+this.db},
 Oj(d){var x=this
-return A.btb(x.z,x.Q,x.as,d,x.at,x.ax,x.ay,x.w,x.x,x.y,x.cy,x.db,x.dx,x.e,x.f,x.r,x.ch,x.CW,x.cx,x.dy,x.fr,x.fx,x.id,x.fy,x.go,x.b,x.c,x.d)},
+return A.btc(x.z,x.Q,x.as,d,x.at,x.ax,x.ay,x.w,x.x,x.y,x.cy,x.db,x.dx,x.e,x.f,x.r,x.ch,x.CW,x.cx,x.dy,x.fr,x.fx,x.id,x.fy,x.go,x.b,x.c,x.d)},
 a8(d,e){var x=this
-return A.btb(x.z+e.z,x.Q+e.Q,x.as+e.as,x.a,x.at+e.at,x.ax+e.ax,x.ay+e.ay,x.w+e.w,x.x+e.x,x.y+e.y,x.cy+e.cy,x.db+e.db,x.dx+e.dx,x.e+e.e,x.f+e.f,x.r+e.r,x.ch+e.ch,x.CW+e.CW,x.cx+e.cx,x.dy+e.dy,x.fr+e.fr,x.fx+e.fx,x.id+e.id,x.fy+e.fy,x.go+e.go,x.b+e.b,x.c+e.c,x.d+e.d)},
-G(){var x=this
+return A.btc(x.z+e.z,x.Q+e.Q,x.as+e.as,x.a,x.at+e.at,x.ax+e.ax,x.ay+e.ay,x.w+e.w,x.x+e.x,x.y+e.y,x.cy+e.cy,x.db+e.db,x.dx+e.dx,x.e+e.e,x.f+e.f,x.r+e.r,x.ch+e.ch,x.CW+e.CW,x.cx+e.cx,x.dy+e.dy,x.fr+e.fr,x.fx+e.fx,x.id+e.id,x.fy+e.fy,x.go+e.go,x.b+e.b,x.c+e.c,x.d+e.d)},
+F(){var x=this
 return B.y(["date",x.a.c4(),"visaSales",x.b,"visaTips",x.c,"visaTotal",x.d,"mastercardSales",x.e,"mastercardTips",x.f,"mastercardTotal",x.r,"discoverSales",x.w,"discoverTips",x.x,"discoverTotal",x.y,"amexSales",x.z,"amexTips",x.Q,"amexTotal",x.as,"diningPrepaidSales",x.at,"diningPrepaidTips",x.ax,"diningPrepaidTotal",x.ay,"ontablePrepaidSales",x.ch,"ontablePrepaidTips",x.CW,"ontablePrepaidTotal",x.cx,"integrationPrepaidSales",x.cy,"integrationPrepaidTips",x.db,"integrationPrepaidTotal",x.dx,"otherSales",x.dy,"otherTips",x.fr,"otherTotal",x.fx,"totalSales",x.fy,"totalTips",x.go,"totalCreditCard",x.id],y.g,y.b)}}
 var z=a.updateTypes([]);(function inheritance(){var x=a.inherit
 x(A.lN,B.ag)})()
-B.eF(b.typeUniverse,JSON.parse('{"nJ":{"C":[]},"tM":{"cg":["oB","f9"],"cQ":["f9"],"fN":["f9"],"cQ.0":"f9","cg.0":"oB","cg.1":"f9"},"oB":{"C":[]},"Gr":{"oB":[],"C":[]},"Gs":{"oB":[],"C":[]},"f9":{"C":[]}}'))
+B.eF(b.typeUniverse,JSON.parse('{"nK":{"C":[]},"tV":{"cg":["oB","f9"],"cQ":["f9"],"fO":["f9"],"cQ.0":"f9","cg.0":"oB","cg.1":"f9"},"oB":{"C":[]},"Gp":{"oB":[],"C":[]},"Gq":{"oB":[],"C":[]},"f9":{"C":[]}}'))
 var y={g:B.a8("n"),b:B.a8("@")}};
-(a=>{a["63Om6QD7hw8+CoBX+ebIVj/RH+M="]=a.current})($__dart_deferred_initializers__);
+(a=>{a["UGo3EWsL2kAHX28v1AsGeYuK7lA="]=a.current})($__dart_deferred_initializers__);

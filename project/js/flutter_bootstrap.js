@@ -37,20 +37,44 @@ if (!window._flutter) {
 _flutter.buildConfig = {"engineRevision":"587c18f873b8ab57330422bce09047420d9c7f42","builds":[{"compileTarget":"dart2js","renderer":"canvaskit","mainJsPath":"main.dart.js"},{}]};
 
 
-// window.JS_BASE_URL ถูกกำหนดไว้ใน index.html
-// ถ้าไม่ได้กำหนด จะโหลดจากโฟลเดอร์เดียวกับ index.html ตามปกติ
+// ไฟล์นี้ต้องอยู่ที่ `web/flutter_bootstrap.js` (รากของ web/) เท่านั้น — flutter build แทนค่า
+// template token ให้เฉพาะไฟล์ชื่อนี้ที่ราก (เช็ค relativePath ตรง ๆ) ย้ายไปไว้ใน subfolder
+// เมื่อไหร่มันจะถูกก๊อปดิบ ๆ token ไม่ถูกแทน = SyntaxError แอปไม่ขึ้นทั้งตัว
+//
+// **ห้ามพิมพ์ชื่อ template token ซ้ำที่อื่นในไฟล์นี้ แม้แต่ในคอมเมนต์** — flutter build แทนค่า
+// ด้วย string replace ธรรมดา ไม่สนว่าอยู่ในคอมเมนต์หรือเปล่า เนื้อ flutter.js ทั้งก้อนจะถูกยัด
+// ลงกลางคอมเมนต์แล้วบรรทัดที่เหลือหลุดออกมาเป็นโค้ด (ตรวจหลัง build ด้วย node --check)
+
 _flutter.loader.load({
   config: {
-    // บอกว่า main.dart.js อยู่ที่ไหน (ไฟล์ .part.js ตามไปเองอัตโนมัติ)
-    entrypointBaseUrl: window.JS_BASE_URL,
-    // โฟลเดอร์ assets/ (ฟอนต์, รูป, AssetManifest)
-    assetBase: window.JS_BASE_URL,
-    // canvaskit ตามไปโฮสต์เดียวกับ main.dart.js ด้วย (ดีฟอลต์ของ Flutter คือดึงจาก
-    // https://www.gstatic.com/flutter-canvaskit/<engineRevision>) — ได้ใช้ connection HTTP/2
-    // เส้นเดิมที่เปิดค้างไว้อยู่แล้ว ไม่ต้อง DNS + TLS handshake ไปโดเมนที่สาม
-    // ปล่อย undefined เมื่อไม่มี JS_BASE_URL แล้ว loader จะตกกลับไป gstatic ตามเดิม (รันในเครื่อง)
-    canvasKitBaseUrl: window.JS_BASE_URL
-      ? window.JS_BASE_URL + "canvaskit"
-      : undefined,
+    // บอกว่า main.dart.js อยู่ที่ไหน (ไฟล์ .part.js ตามไปเองเพราะ dart2js อิง
+    // document.currentScript.src ของ main.dart.js ไม่ใช่ของหน้า HTML)
+    //
+    // **ห้ามปล่อยว่าง** — flutter.js resolve ด้วย new URL(path, document.baseURI) ซึ่ง
+    // baseURI ของหน้าโฮสต์คือ /app/ ตอน production ⇒ จะไปขอ /app/main.dart.js ที่ไม่มีอยู่
+    // (flutter build เขียน main.dart.js ลงรากของ build/web เสมอ) แล้ว rewrite ของ IIS จะคืน
+    // index.html เป็น text/html มาแทน = SyntaxError แอปไม่ขึ้น หาสาเหตุยากเพราะไฟล์บน
+    // เซิร์ฟเวอร์ถูกต้องหมด
+    //   window.JS_BASE_URL ถูกตั้งไว้ -> โหลดจาก CDN นั้น
+    //   ค่าว่าง (เช่นตอน flutter run / self-host) -> รากของโฮสต์เดียวกับหน้าเว็บ
+    //
+    // **ห้ามใส่ "/" เฉย ๆ** — flutter.js join path ด้วย I(...) ที่เรียก C() ตัด "/" ท้ายทุกตัว
+    // ออกก่อน แล้ว .filter(e => e.length) ทิ้งสตริงว่าง ⇒ C("/") === "" ⇒ **ค่าถูกกลืนหาย
+    // ทั้งค่า** เท่ากับไม่ได้ตั้ง entrypointBaseUrl เลย แล้วตกไป new URL("main.dart.js",
+    // document.baseURI) = /app/main.dart.js ที่ไม่มีอยู่ → rewrite คืน index.html เป็น HTML
+    // → "Uncaught SyntaxError: Unexpected token '<'" แอปไม่ขึ้นทั้งตัว
+    // ต้องเป็น URL ที่มี origin ติดมาด้วย C() ถึงจะเหลืออะไรให้ join (ตรวจตอน build ด้วย
+    // tool/verify_entrypoint_url.mjs)
+    entrypointBaseUrl: window.JS_BASE_URL || location.origin + "/",
+
+    // assets/ (ฟอนต์, รูป, AssetManifest) ออกที่รากของ build/web เหมือนกัน และ **ไม่ตามไปกับ
+    // JS ที่อยู่บน CDN** — ของจริงอยู่บนเว็บเซิร์ฟเวอร์เดียวกับหน้าเว็บ จึงชี้กลับไปที่ราก
+    // same-origin ⇒ ไม่ต้องพึ่ง CORS (engine assert ว่าค่านี้ต้องลงท้ายด้วย "/")
+    assetBase: "/",
+
+    // canvaskit ปล่อยเป็นดีฟอลต์ = gstatic (ดูเหตุผลเรื่อง compression ใน CLAUDE.md)
+    // เปลี่ยนเมื่อไหร่ **ต้องใส่ canvasKitBaseUrl ลง boot.json ด้วย** ไม่งั้นหน้า warm-up
+    // จะยัง warm URL ของ gstatic อยู่ = โหลดทิ้งเปล่า ๆ แล้วตัวจริงยังต้องโหลดอีก
+    // canvasKitBaseUrl: window.JS_BASE_URL ? window.JS_BASE_URL + "canvaskit" : undefined,
   },
 });
