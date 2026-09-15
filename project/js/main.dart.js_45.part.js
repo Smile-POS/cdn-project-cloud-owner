@@ -9,5 +9,5 @@ a1(){return"FilterReportType."+this.b}}
 var z=a.updateTypes([]);(function inheritance(){var y=a.inherit
 y(A.ad5,C.mU)})();(function constants(){B.i8=new A.ad5(1,"daily")
 B.je=new A.ad5(2,"weekly")
-B.o3=new A.ad5(3,"monthly")})()};
-(a=>{a["XTh+O/Qmc8NG126QUjt4yvVSxHA="]=a.current})($__dart_deferred_initializers__);
+B.o0=new A.ad5(3,"monthly")})()};
+(a=>{a["cnVBonXZqavpqJ6O6xLj7DycenA="]=a.current})($__dart_deferred_initializers__);

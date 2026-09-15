@@ -1,5 +1,5 @@
 ((a,b)=>{a[b]=a[b]||{}})(self,"$__dart_deferred_initializers__")
-$__dart_deferred_initializers__.current=function(a,b,c,$){var A,C,B={fw:function fw(d,e,f,g,h){var _=this
+$__dart_deferred_initializers__.current=function(a,b,c,$){var A,C,B={fx:function fx(d,e,f,g,h){var _=this
 _.a=d
 _.b=e
 _.c=f
@@ -8,15 +8,15 @@ _.e=h},bn7:function bn7(){},fU:function fU(){},avQ:function avQ(){}}
 A=c[0]
 C=c[2]
 B=a.updateHolder(c[20],B)
-B.fw.prototype={
+B.fx.prototype={
 a8(d,e){var x=this,w=new B.bn7()
-return new B.fw(x.a,C.f.a8(x.b,e.b),C.f.a8(x.c,e.c),w.$2(x.d,e.d),w.$2(x.e,e.e))},
-F(){var x=this
+return new B.fx(x.a,C.f.a8(x.b,e.b),C.f.a8(x.c,e.c),w.$2(x.d,e.d),w.$2(x.e,e.e))},
+G(){var x=this
 return A.y(["date",x.a.c4(),"totalAmountCollected",x.b,"feeCreditCard",x.c,"amount",x.d,"tip",x.e],y.w,y.b)}}
 B.fU.prototype={
 gS(){return A.c([],y.h)}}
 B.avQ.prototype={}
-var z=a.updateTypes(["a_<n,E<bB>>(a_<n,E<bB>>,a_<n,E<bB>>)"])
+var z=a.updateTypes(["a_<n,E<bC>>(a_<n,E<bC>>,a_<n,E<bC>>)"])
 B.bn7.prototype={
 $2(d,e){var x,w,v,u,t,s,r,q=y.w,p=A.X(q,y.f)
 q=A.eS(new A.bv(d,A.A(d).j("bv<1>")),q)
@@ -31,10 +31,10 @@ r=A.z(t,x)
 C.f.k(r,s)
 p.v(0,u,r)}return p},
 $S:z+0};(function inheritance(){var x=a.inherit
-x(B.fw,A.ag)
-x(B.bn7,A.fp)
+x(B.fx,A.ag)
+x(B.bn7,A.fq)
 x(B.fU,A.C)
 x(B.avQ,B.fU)})()
-A.eF(b.typeUniverse,JSON.parse('{"xP":{"cg":["n4","fU"],"cQ":["fU"],"fO":["fU"],"cQ.0":"fU","cg.0":"n4","cg.1":"fU"},"n4":{"C":[]},"FB":{"n4":[],"C":[]},"zC":{"n4":[],"C":[]},"Lg":{"n4":[],"C":[]},"fU":{"C":[]},"avQ":{"fU":[],"C":[]}}'))
-var y={E:A.a8("bB"),k:A.a8("H<bB>"),h:A.a8("H<ag>"),f:A.a8("E<bB>"),w:A.a8("n"),b:A.a8("@")}};
-(a=>{a["/jvfe0ZLJoNkJFMn3ZLELZJRj1s="]=a.current})($__dart_deferred_initializers__);
+A.eF(b.typeUniverse,JSON.parse('{"xP":{"cg":["n4","fU"],"cQ":["fU"],"fO":["fU"],"cQ.0":"fU","cg.0":"n4","cg.1":"fU"},"n4":{"C":[]},"Fx":{"n4":[],"C":[]},"zC":{"n4":[],"C":[]},"Lg":{"n4":[],"C":[]},"fU":{"C":[]},"avQ":{"fU":[],"C":[]}}'))
+var y={E:A.a9("bC"),k:A.a9("H<bC>"),h:A.a9("H<ag>"),f:A.a9("E<bC>"),w:A.a9("n"),b:A.a9("@")}};
+(a=>{a["ygHK7SHqpfi5oV+OfPzDaMUDrcA="]=a.current})($__dart_deferred_initializers__);
