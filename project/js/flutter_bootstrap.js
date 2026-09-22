@@ -47,34 +47,41 @@ _flutter.buildConfig = {"engineRevision":"587c18f873b8ab57330422bce09047420d9c7f
 // resolveJsBase() (web/app_config.js) เป็นตัวเดียวที่รู้ที่อยู่ของ bundle — ต้องรอมันก่อน
 // เพราะเวอร์ชันใน URL อ่านจาก /version.json ตอน runtime
 // หน้าโฮสต์ประกาศ window.onJsBaseError ไว้แสดง error แทนการค้างที่ spinner เปล่า
-window.resolveJsBase().then(
-  function (entrypointBaseUrl) {
-    _flutter.loader.load({
-      config: {
-        // บอกว่า main.dart.js อยู่ที่ไหน (.part.js ตามไปเองเพราะ dart2js อิง
-        // document.currentScript.src ของ main.dart.js ไม่ใช่ของหน้า HTML)
-        //
-        // **ต้องมี origin ติดมาด้วยเสมอ** — flutter.js join path ด้วย I(...) ที่เรียก C()
-        // ตัด "/" ท้ายทุกตัวก่อน (C("/") === "") แล้ว filter สตริงว่างทิ้ง ⇒ path ล้วนถูกกลืน
-        // หายทั้งค่า เท่ากับไม่ได้ตั้งอะไรเลย แล้วตกไป new URL("main.dart.js",
-        // document.baseURI) = /app/main.dart.js ที่ไม่มีอยู่ → rewrite คืน index.html เป็น
-        // HTML → SyntaxError (ตรวจด้วย tool/verify_entrypoint_url.mjs)
-        entrypointBaseUrl: entrypointBaseUrl,
+//
+// appEntryAllowed เป็น false แปลว่าหน้าโฮสต์กำลังเด้งกลับไปหน้า warm-up — **ห้ามเริ่มโหลด
+// main.dart.js** เพราะ location.replace() ยังไม่เกิดจนกว่า microtask ชุดนี้จะจบ จะกลายเป็น
+// ดาวน์โหลดก้อนใหญ่ทิ้งทุกครั้งที่ถูกเด้ง (หน้าที่ไม่ได้ประกาศไว้ = ไม่มีการเด้ง ให้ผ่าน)
+(window.appEntryAllowed || Promise.resolve(true)).then(function (allowed) {
+  if (!allowed) return;
+  return window.resolveJsBase().then(
+    function (entrypointBaseUrl) {
+      _flutter.loader.load({
+        config: {
+          // บอกว่า main.dart.js อยู่ที่ไหน (.part.js ตามไปเองเพราะ dart2js อิง
+          // document.currentScript.src ของ main.dart.js ไม่ใช่ของหน้า HTML)
+          //
+          // **ต้องมี origin ติดมาด้วยเสมอ** — flutter.js join path ด้วย I(...) ที่เรียก C()
+          // ตัด "/" ท้ายทุกตัวก่อน (C("/") === "") แล้ว filter สตริงว่างทิ้ง ⇒ path ล้วนถูก
+          // กลืนหายทั้งค่า เท่ากับไม่ได้ตั้งอะไรเลย แล้วตกไป new URL("main.dart.js",
+          // document.baseURI) = /app/main.dart.js ที่ไม่มีอยู่ → rewrite คืน index.html
+          // เป็น HTML → SyntaxError (ตรวจด้วย tool/verify_entrypoint_url.mjs)
+          entrypointBaseUrl: entrypointBaseUrl,
 
-        // assets/ ออกที่รากของ build/web เสมอ และ **ไม่ตามไปกับ JS ที่อยู่บน CDN**
-        // ต้องชี้กลับไปที่ราก ไม่งั้น <base href="/app/"> จะพาไปหา /app/assets/…
-        // (engine assert ว่าค่านี้ต้องลงท้ายด้วย "/")
-        assetBase: "/",
+          // assets/ ออกที่รากของ build/web เสมอ และ **ไม่ตามไปกับ JS ที่อยู่บน CDN**
+          // ต้องชี้กลับไปที่ราก ไม่งั้น <base href="/app/"> จะพาไปหา /app/assets/…
+          // (engine assert ว่าค่านี้ต้องลงท้ายด้วย "/")
+          assetBase: "/",
 
-        // canvaskit ปล่อยเป็นดีฟอลต์ = gstatic
-        // เปลี่ยนเมื่อไหร่ **ต้องใส่ canvasKitBaseUrl ลง boot.json ด้วย** ไม่งั้นหน้า warm-up
-        // จะ warm URL เดิมทิ้งเปล่า ๆ แล้วตัวจริงยังต้องโหลดอีก
-        // canvasKitBaseUrl: "https://example.com/canvaskit/",
-      },
-    });
-  },
-  function (error) {
-    console.error("resolveJsBase failed", error);
-    if (window.onJsBaseError) window.onJsBaseError(error);
-  },
-);
+          // canvaskit ปล่อยเป็นดีฟอลต์ = gstatic
+          // เปลี่ยนเมื่อไหร่ **ต้องใส่ canvasKitBaseUrl ลง boot.json ด้วย** ไม่งั้นหน้า
+          // warm-up จะ warm URL เดิมทิ้งเปล่า ๆ แล้วตัวจริงยังต้องโหลดอีก
+          // canvasKitBaseUrl: "https://example.com/canvaskit/",
+        },
+      });
+    },
+    function (error) {
+      console.error("resolveJsBase failed", error);
+      if (window.onJsBaseError) window.onJsBaseError(error);
+    },
+  );
+});
