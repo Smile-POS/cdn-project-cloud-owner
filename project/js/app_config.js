@@ -31,7 +31,7 @@ window.APP_ENVIRONMENTS = {
     path: "",
   },
   production: {
-    url: "https://cdn.jsdelivr.net/gh/Smile-POS/cdn-project-cloud-owner@v1.0.3/project/js/",
+    url: "https://cdn.jsdelivr.net/gh/Smile-POS/cdn-project-cloud-owner@v1.0.4/project/js/",
     version: "",
     path: "",
   },

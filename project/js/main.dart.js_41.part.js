@@ -1,12 +1,12 @@
 ((a,b)=>{a[b]=a[b]||{}})(self,"$__dart_deferred_initializers__")
 $__dart_deferred_initializers__.current=function(a,b,c,$){var B,A={
-dYZ(d){return new A.kS(d,new A.Na(0,0,0,0,0),new A.Na(0,0,0,0,0),new A.Na(0,0,0,0,0))},
+dYX(d){return new A.kS(d,new A.Nb(0,0,0,0,0),new A.Nb(0,0,0,0,0),new A.Nb(0,0,0,0,0))},
 kS:function kS(d,e,f,g){var _=this
 _.a=d
 _.b=e
 _.c=f
 _.d=g},
-Na:function Na(d,e,f,g,h){var _=this
+Nb:function Nb(d,e,f,g,h){var _=this
 _.a=d
 _.b=e
 _.c=f
@@ -23,13 +23,13 @@ gOV(){return this.b.e+this.c.e+this.d.e},
 a8(d,e){return new A.kS(e.a,this.b.a8(0,e.b),this.c.a8(0,e.c),this.d.a8(0,e.d))},
 G(){var x=this
 return B.y(["date",x.a.c4(),"creditCard",x.b.G(),"paymentOnlineFlatRate",x.c.G(),"paymentOnlinePercentage",x.d.G()],y.g,y.b)}}
-A.Na.prototype={
+A.Nb.prototype={
 a8(d,e){var x=this
-return new A.Na(x.a+e.a,x.b+e.b,x.c+e.c,x.d+e.d,x.e+e.e)},
+return new A.Nb(x.a+e.a,x.b+e.b,x.c+e.c,x.d+e.d,x.e+e.e)},
 G(){var x=this
 return B.y(["grossSales",x.a,"advance",x.b,"estimatedFee",x.c,"surcharge",x.d,"netDeposit",x.e],y.g,y.b)}}
 var z=a.updateTypes([]);(function inheritance(){var x=a.inheritMany
-x(B.ag,[A.kS,A.Na])})()
-B.eF(b.typeUniverse,JSON.parse('{"un":{"cg":["qx","iT"],"cQ":["iT"],"fO":["iT"],"cQ.0":"iT","cg.0":"qx","cg.1":"iT"},"qx":{"C":[]},"Ma":{"qx":[],"C":[]},"iT":{"C":[]}}'))
+x(B.ag,[A.kS,A.Nb])})()
+B.eF(b.typeUniverse,JSON.parse('{"ue":{"ch":["qx","iT"],"cQ":["iT"],"fO":["iT"],"cQ.0":"iT","ch.0":"qx","ch.1":"iT"},"qx":{"C":[]},"Mb":{"qx":[],"C":[]},"iT":{"C":[]}}'))
 var y={g:B.a9("n"),b:B.a9("@")}};
-(a=>{a["rB34L/xFhvHuFbxy0JDeq2CDr9I="]=a.current})($__dart_deferred_initializers__);
+(a=>{a["qauzLvIEYdSurF3eFz3OaJtzKj0="]=a.current})($__dart_deferred_initializers__);
