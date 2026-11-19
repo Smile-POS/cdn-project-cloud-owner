@@ -31,7 +31,7 @@ window.APP_ENVIRONMENTS = {
     path: "",
   },
   production: {
-    url: "https://cdn.jsdelivr.net/gh/Smile-POS/cdn-project-cloud-owner@v1.0.4/project/js/",
+    url: "https://cdn.jsdelivr.net/gh/Smile-POS/cdn-project-cloud-owner@v1.0.6/project/js/",
     version: "",
     path: "",
   },
@@ -99,5 +99,34 @@ window.APP_ENVIRONMENT = "debug";
       });
     }
     return pending;
+  };
+
+  // flutter build web --wasm ออกสอง build คู่กัน แล้ว flutter.js เลือกเองตอน runtime:
+  // dart2wasm + skwasm (main.dart.wasm) ถ้าเบราว์เซอร์ผ่านทุกข้อข้างล่าง ไม่งั้น dart2js +
+  // canvaskit (main.dart.js + .part.js) — หน้า warm-up กับ preload ต้องเดาให้ตรงกับ engine
+  // ไม่งั้นดาวน์โหลดก้อนที่ไม่ได้ใช้ทิ้งฟรีหลาย MB
+  // ลอกมาจาก flutter_js/src/browser_environment.js + loader.js (Flutter 3.38.9):
+  //   defaultWasmSupport เปิดเฉพาะ blink, supportsWasmGC, webGLVersion > 0
+  // **อัป Flutter เมื่อไหร่ tool/verify_canvaskit_variant.mjs จะเทียบกับ flutter.js ให้**
+  var wasmCapable = null;
+  window.flutterWillUseWasm = function (hasWasmBuild) {
+    if (!hasWasmBuild) return false;
+    if (wasmCapable === null) {
+      var ua = navigator.userAgent;
+      var blink = navigator.vendor === "Google Inc." || ua.indexOf("Edg/") >= 0;
+      var gc = false;
+      try {
+        gc = WebAssembly.validate(new Uint8Array([0, 97, 115, 109, 1, 0, 0, 0, 1, 5, 1, 95, 1, 120, 0]));
+      } catch (e) {}
+      var webgl = false;
+      try {
+        var canvas = document.createElement("canvas");
+        canvas.width = 1;
+        canvas.height = 1;
+        webgl = canvas.getContext("webgl2") != null || canvas.getContext("webgl") != null;
+      } catch (e) {}
+      wasmCapable = blink && gc && webgl;
+    }
+    return wasmCapable;
   };
 })();
